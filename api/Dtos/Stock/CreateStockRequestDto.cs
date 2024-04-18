@@ -13,4 +13,5 @@ public string Symbol { get; set; } = string.Empty;
     public string Industry { get; set; } = string.Empty;
 
     public long MarkerCap { get; set; }
+
 }

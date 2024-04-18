@@ -15,4 +15,6 @@ public class StockDto
     public string Industry { get; set; } = string.Empty;
 
     public long MarkerCap { get; set; }
+
+    public List<CommentDto> Comments { get; set;}
 }
