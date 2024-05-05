@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace api;
@@ -16,7 +17,7 @@ public class StockController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll([FromQuery] QueryObject query) 
+    [Authorize]    public async Task<IActionResult> GetAll([FromQuery] QueryObject query) 
     {
         var stocks = await _stockRepo.GetAllAsync(query);
         var stockDto = stocks.Select(s => s.ToStockDto());

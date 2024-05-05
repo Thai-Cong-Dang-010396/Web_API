@@ -1,0 +1,30 @@
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+
+namespace api;
+
+[Route("api/portfolio")]
+[ApiController]
+public class PortfolioController: ControllerBase
+{
+    private readonly UserManager<AppUser> _userManager;
+    private readonly IStockReponsitory _stockRepo;
+    private readonly IPortfolioRepository _portfolioRepo;
+    public PortfolioController(UserManager<AppUser> userManager, IStockReponsitory stockRepo, IPortfolioRepository portfolioRepo)
+    {
+        _userManager = userManager;
+        _stockRepo = stockRepo;
+        _portfolioRepo = portfolioRepo;
+    }
+
+    [HttpGet]
+    [Authorize]
+    public async Task<IActionResult> GetUserPortfolio()
+    {
+        var username = User.GetUsername();
+        var appUser =  await _userManager.FindByNameAsync(username);
+        var userPortfolio = await _portfolioRepo.GetUserPortfolio(appUser);
+        return Ok(userPortfolio);
+    }
+}
