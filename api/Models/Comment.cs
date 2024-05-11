@@ -14,6 +14,10 @@ public class Comment
     public DateTime CreateOn { get; set; } = DateTime.Now;
 
     public int? StockID { get; set; }
-    //Navigation
+
     public Stock? Stock { get; set; }
+
+    public string AppUserId { get; set; }
+
+    public AppUser AppUser { get; set; }
 }

@@ -71,7 +71,7 @@ builder.Services.AddAuthentication(options => {
         ValidateIssuerSigningKey = true,
         ValidIssuer = builder.Configuration["JWT:Issuer"],
         ValidAudience = builder.Configuration["JWT:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWT:Signingkey"]))
+        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKey"]))
     };
 });
 
@@ -79,6 +79,8 @@ builder.Services.AddScoped<IStockReponsitory, StockRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IPortfolioRepository, PortfolioResository>();
+builder.Services.AddScoped<IFMPService, FMPService>();
+builder.Services.AddHttpClient<IFMPService, FMPService>();
 
 var app = builder.Build();
 
